@@ -1,19 +1,19 @@
 import HttpService from "./HttpService";
 
 class AuthService extends HttpService {
-    // login,register,logout
     async register(credentials) {
         const {data} = await this.client.post("/register", credentials);
-        return data;
+        localStorage.setItem("token", data.token);
     }
 
     async login(credentials) {
         const {data} = await this.client.post("/login", credentials);
-        return data;
+        localStorage.setItem("token", data.token);
     }
 
     async logout() {
         this.client.post("/logout");
+        localStorage.removeItem("token");
     }
 }
 

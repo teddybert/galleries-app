@@ -3,7 +3,7 @@ import {useHistory} from "react-router-dom";
 import authService from "../services/AuthService";
 
 
-export default function LoginPage() {
+export default function LoginPage({onLogin}) {
     const history = useHistory();
     const [credentials, setCredentials] = useState({
         email: "",
@@ -14,6 +14,7 @@ export default function LoginPage() {
         e.preventDefault();
         try {
             await authService.login(credentials, setCredentials);
+            onLogin();
             history.push("/");
         } catch(error) {
             console.log("Error", error);
@@ -42,7 +43,7 @@ export default function LoginPage() {
                       setCredentials({...credentials, password: target.value});
                   }} />
 
-                <button type="submit">Log in</button>
+                <button>Log in</button>
             </form>
         </div>
     );

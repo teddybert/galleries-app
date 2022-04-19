@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useHistory} from "react-router-dom";
 import authService from "../services/AuthService";
 
-export default function RegisterPage() {
+export default function RegisterPage(onRegister) {
     const history = useHistory();
     const [credentials, setCredentials] = useState({
         first_name: "",
@@ -16,6 +16,7 @@ export default function RegisterPage() {
         e.preventDefault();
         try {
             await authService.register(credentials);
+            onRegister();
             history.push("/");
         } catch(error) {
             console.log("Error", error);
@@ -63,7 +64,7 @@ export default function RegisterPage() {
                   type="password"
                   required
                   placeholder="Password"
-                  minlength="8"
+                  minLength="8"
                   value={credentials.password}
                   onChange={({target}) => {
                       setCredentials({...credentials, password: target.value});
@@ -75,10 +76,10 @@ export default function RegisterPage() {
                   type="password"
                   placeholder="Confirm Password"
                   required 
-                  minlength="8"
+                  minLength="8"
                   value={credentials.password_confirmation}
                   onChange={({target}) => {
-                      setCredentials({...credentials, password_confirmation: target.value});
+                      setCredentials({...credentials, password_confirmation: target.checked});
                   }}
                 />
                 <br/>
@@ -87,14 +88,14 @@ export default function RegisterPage() {
                   type="checkbox" 
                   required
                   value={credentials.accept_terms_and_conditions}
-                  onChecked={({target}) => {
+                  onChange={({target}) => {
                       setCredentials({...credentials, accept_terms_and_conditions: target.value})
                   }}
                  />
                 <label>I accept terms and conditions</label>
                 <br/>
                 <br/>
-                <button type="submit">Register</button>
+                <button>Register</button>
             </form>
         </div>
     );
