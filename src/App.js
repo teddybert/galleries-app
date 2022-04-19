@@ -50,10 +50,11 @@ function App() {
                 <Link to="/register" style={{textDecoration: 'none', display: 'block'}}>Register</Link>
               </li>
             )}
-
-            <li style={{float: 'left',}}>
-              <Link to="/create" style={{textDecoration: 'none', display: 'block'}}>Create New Gallery</Link>
-            </li>
+            {isAuthenticated && (
+              <li style={{float: 'left',}}>
+                <Link to="/create" style={{textDecoration: 'none', display: 'block'}}>Create New Gallery</Link>
+              </li>
+            )}
           </ul>
         </nav>
 
