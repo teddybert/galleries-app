@@ -21,6 +21,8 @@ export default function LoginPage({onLogin}) {
         }
     }
 
+    const [invalidCredentials, setInvalidCredentials] = useState();
+
     return (
         <div>
             <h2>Log in</h2>

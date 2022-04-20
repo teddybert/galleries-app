@@ -14,7 +14,7 @@ export default function CreateGalleryPage() {
         e.preventDefault();
         try {
             await galleryService.create(newGallery);
-            history.push("/mygalleries");
+            history.push("/my-galleries");
         } catch(err) {
             console.log("Error", err);
         }
@@ -59,6 +59,7 @@ export default function CreateGalleryPage() {
                 </div>
                 <br/>
 
+                {/* {add edit} */}
                 <button>Submit</button>
             </form>
         </div>

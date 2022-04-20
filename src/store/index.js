@@ -9,7 +9,7 @@ const store = configureStore({
         // 
     },
     middleware: [
-        ...getDefaultMiddleware,
+        ...getDefaultMiddleware({thunk: false}),
         sagaMiddleware,
     ]
 });

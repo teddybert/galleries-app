@@ -12,6 +12,8 @@ export default function RegisterPage(onRegister) {
         accept_terms_and_conditions: false,
     });
 
+    const [invalidCredentials, setInvalidCredentials] = useState();
+    
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {

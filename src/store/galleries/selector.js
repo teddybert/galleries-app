@@ -1,0 +1,1 @@
+export const getGalleriesSelector = (state) => state.galleries.gallery;
