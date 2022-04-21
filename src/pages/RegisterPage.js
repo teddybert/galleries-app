@@ -1,27 +1,37 @@
 import {useState} from "react";
 import {useHistory} from "react-router-dom";
-import authService from "../services/AuthService";
+// import authService from "../services/AuthService";
+import {register} from "../store/auth/slice";
+import {useDispatch} from "react-redux";
 
 export default function RegisterPage(onRegister) {
+    const dispatch = useDispatch();
     const history = useHistory();
     const [credentials, setCredentials] = useState({
         first_name: "",
         last_name: "",
+        email: "",
         password: "",
         password_confirmation: "",
         accept_terms_and_conditions: false,
     });
 
-    const [invalidCredentials, setInvalidCredentials] = useState();
-    
+    const [invalidCredentials, setInvalidCredentials] = useState(false);
+
     const handleSubmit = async(e) => {
         e.preventDefault();
+        setInvalidCredentials(false);
+        // if(!e.target.accept_terms_and_conditions.checked) {
+        //     alert("Terms and conditions must be accepted");
+        // }
         try {
-            await authService.register(credentials);
+            // await authService.register(credentials);
+            dispatch(register(credentials));
             onRegister();
             history.push("/");
         } catch(error) {
             console.log("Error", error);
+            setInvalidCredentials(true);
         }
     }
 
@@ -52,7 +62,7 @@ export default function RegisterPage(onRegister) {
                 <br/>
 
                 <input 
-                  type="text"
+                  type="email"
                   required
                   placeholder="Email"
                   value={credentials.email}
@@ -81,22 +91,26 @@ export default function RegisterPage(onRegister) {
                   minLength="8"
                   value={credentials.password_confirmation}
                   onChange={({target}) => {
-                      setCredentials({...credentials, password_confirmation: target.checked});
+                      setCredentials({...credentials, password_confirmation: target.value});
                   }}
                 />
                 <br/>
 
+                <br/>
                 <input 
                   type="checkbox" 
                   required
                   value={credentials.accept_terms_and_conditions}
                   onChange={({target}) => {
-                      setCredentials({...credentials, accept_terms_and_conditions: target.value})
+                      setCredentials({...credentials, accept_terms_and_conditions: target.checked})
                   }}
                  />
                 <label>I accept terms and conditions</label>
                 <br/>
                 <br/>
+                {invalidCredentials && (
+                    <p style={{color: 'red', fontSize: 15}}>Invalid credentials</p>
+                )}
                 <button>Register</button>
             </form>
         </div>

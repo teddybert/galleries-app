@@ -4,7 +4,9 @@ export default function MyGalleriesPage() {
             <h2>
                 My Galleries
             </h2>
-            <div></div>
+            <div>
+                
+            </div>
         </div>
     );
 }

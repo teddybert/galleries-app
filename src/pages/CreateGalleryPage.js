@@ -1,25 +1,45 @@
-import { useState} from "react";
-import {useHistory} from "react-router-dom";
+import {useState, useEffect} from "react";
+import {useHistory, useParams} from "react-router-dom";
 import galleryService from "../services/GalleryService";
 
 export default function CreateGalleryPage() {
     const history = useHistory();
+    let {id} = useParams();
     const [newGallery, setNewGallery] = useState({
         name: "",
         description: "",
-        image_url: [],
+        image_url: [], //image_url: [...imageUrl],
     });
+    // const [imageUrl, setImageUrl] = useState([]);
+
+    const getGallery = async() => {
+        if(!id) {
+            return;
+        }
+        const gallery = galleryService.get(id);
+        setNewGallery(gallery);
+    }
+    useEffect(() => {
+        getGallery();
+    }, []);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        try {
-            await galleryService.create(newGallery);
-            history.push("/my-galleries");
-        } catch(err) {
-            console.log("Error", err);
+        if(!id) {
+            try {
+                await galleryService.create(newGallery);
+                history.push("/my-galleries");
+            } catch(err) {
+                console.log("Error", err);
+            }
+        } else {
+            await galleryService.edit(id, newGallery);
         }
     }
 
+    const handleCancel = async() => {
+        history.push("/my-galleries");
+    }
     const handleAddURL = async() => {}
 
     return (
@@ -59,8 +79,8 @@ export default function CreateGalleryPage() {
                 </div>
                 <br/>
 
-                {/* {add edit} */}
                 <button>Submit</button>
+                <button onClick={handleCancel}>Cancel</button>
             </form>
         </div>
     )

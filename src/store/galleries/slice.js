@@ -1,21 +1,39 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const middlewareActions = {
-    getGallery: () => {},
-}
+  getGalleries: () => {},
+  getGallery: () => {},
+  create: () => {},
+  edit: () => {},
+  deleteGallery: () => {},
+};
 
 const galleriesSlice = createSlice({
-    name: "galleries",
-    initialState: {
-        gallery: "",
+  name: "galleries",
+  initialState: {
+    galleriesPage: [],
+    gallery: null,
+  },
+  reducers: {
+    setGalleries: (state, action) => {
+      state.galleries = action.payload;
     },
-    reducers: {
-        setGallery: (state, action) => {
-            state.gallery = action.payload
-        },
-        ...middlewareActions,
+    setGallery: (state, action) => {
+      state.gallery = action.payload;
     },
+    ...middlewareActions,
+  },
 });
 
-export const {getGallery, setGallery} = galleriesSlice.actions;
+export const {
+  deleteGallery,
+  getAll,
+  get,
+  create,
+  edit,
+  setGalleries,
+  setGallery,
+  getGallery,
+  getGalleries,
+} = galleriesSlice.actions;
 export default galleriesSlice.reducer;

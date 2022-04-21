@@ -1,1 +1,2 @@
-export const getGalleriesSelector = (state) => state.galleries.gallery;
+export const galleriesSelector = (state) => state.galleries.galleriesPage;
+export const gallerySelector = (state) => state.galleries.gallery;

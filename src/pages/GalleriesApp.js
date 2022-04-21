@@ -1,12 +1,15 @@
 import {useState, useEffect} from "react";
 import galleryService from "../services/GalleryService";
+import {useDispatch, useSelector} from "react-redux";
+import {galleriesSelector} from "../store/galleries/selector";
 
 export default function GalleriesApp () {
-    const [galleries, setGalleries] = useState([]);
+    // const [galleries, setGalleries] = useState([]);
+    const galleries = useSelector(galleriesSelector)
 
     const getGalleries = async() => {
-        const data = await galleryService.getAll();
-        setGalleries(data);
+        // const data = await galleryService.getGalleries();
+        // setGalleries(data);
     }
 
     useEffect(() => {
@@ -23,15 +26,14 @@ export default function GalleriesApp () {
 
             <h2>Galleries - Home Page</h2>
             <hr/>
-            <ul style={{listStyle: 'none',}}>
-                {galleries.map((gallery) => {
-                    <li>
-                        <h3>{gallery.name}</h3>
-                        <p>{gallery.description}</p>
-                        {/* images */}
-                    </li>
-                })}
-            </ul>
+
+            <div>
+                {/* <ul>
+                    {galleries.data.map((gallery) => {
+                        <li></li>
+                    })}
+                </ul> */}
+            </div>
 
             <button>Load more</button>
         </div>

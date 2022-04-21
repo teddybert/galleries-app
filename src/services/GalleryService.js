@@ -1,11 +1,11 @@
 import HttpService from "./HttpService";
 
 class GalleryService extends HttpService {
-    async getAll() {
+    async getGalleries() {
         const {data} = await this.client.get("/galleries");
         return data;
     }
-    async get(id) {
+    async getGallery(id) {
         const {data} = await this.client.get(`/galleries/${id}`);
         return data;
     }
@@ -17,7 +17,7 @@ class GalleryService extends HttpService {
         const {data} = await this.client.post(`/edit-gallery/${id}`, galleryData);
         return data;
     }
-    async delete(id) {
+    async deleteGallery(id) {
         const {data} = await this.client.delete(`/galleries/${id}`);
         return data;
     }
