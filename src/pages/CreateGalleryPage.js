@@ -8,9 +8,28 @@ export default function CreateGalleryPage() {
     const [newGallery, setNewGallery] = useState({
         name: "",
         description: "",
-        image_url: [], //image_url: [...imageUrl],
+        image_url: [],
     });
-    // const [imageUrl, setImageUrl] = useState([]);
+    const [newImages, setNewImages] = useState([{
+        url: ""
+    }]);
+
+    const handleRemoveClick = index => {
+        const list = [...newImages];
+        list.splice(index, 1);
+        setNewImages(list);
+    }
+
+    const handleAddClick = () => {
+        setNewImages([...newImages, { url: "" }]);
+    }
+
+    const handleInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...newImages];
+        list[index][name] = value;
+        setNewImages(list);
+    }
 
     const getGallery = async() => {
         if(!id) {
@@ -21,7 +40,7 @@ export default function CreateGalleryPage() {
     }
     useEffect(() => {
         getGallery();
-    }, []);
+    }, [getGallery]);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -40,7 +59,6 @@ export default function CreateGalleryPage() {
     const handleCancel = async() => {
         history.push("/my-galleries");
     }
-    const handleAddURL = async() => {}
 
     return (
         <div>
@@ -67,15 +85,27 @@ export default function CreateGalleryPage() {
                 <br />
 
                 <div>
-                    <input
-                      type="text"
-                      placeholder="Image URL"
-                      value={newGallery.image_url}
-                      required
-                      onChange={({target}) => {
-                          setNewGallery({...newGallery, image_url: target.value})
-                      }} />
-                     <button onClick={handleAddURL}>Add another URL</button>
+                    {newImages && newImages.map((img, i) => {
+                        return (
+                            <div>
+                                <input
+                                  required
+                                  value={img.url}
+                                  placeholder="Image URL"
+                                  key={i}
+                                  onChange={(e) => handleInputChange(e, i)}
+                                />
+                                <span>
+                                    {newImages?.length !== 1 && 
+                                      <button onClick={() => handleRemoveClick(i)}>Remove</button>}
+                                </span>
+                                <div>
+                                    {newImages?.length - 1 === i &&
+                                      <button onClick={handleAddClick}>Add more</button>}
+                                </div>
+                            </div>
+                        )
+                    })}
                 </div>
                 <br/>
 
