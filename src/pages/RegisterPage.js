@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import {register} from "../store/auth/slice";
 import {useDispatch} from "react-redux";
 
-export default function RegisterPage(onRegister) {
+export default function RegisterPage({onRegister}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [credentials, setCredentials] = useState({
