@@ -66,14 +66,13 @@ function App() {
         </nav>
 
         <Switch>
-          {/* private route */}
           <Route path="/galleries/:id">
             <ViewGalleryPage />
           </Route>
-          {/* private route */}
-          <Route exact path="/my-galleries">
+          
+          <PrivateRoute exact path="/my-galleries">
             <MyGalleriesPage />
-          </Route>
+          </PrivateRoute>
 
           <Route path="/authors/:id">
             <AuthorsGalleriesPage />
