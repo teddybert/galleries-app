@@ -31,7 +31,9 @@ export default function ViewGalleryPage() {
             <div>
                 <ul>
                     {gallery?.image_url.map((url) => {
+                        return (
                         <li>{url}</li>
+                        )
                     })}
                 </ul>
             </div>
