@@ -6,11 +6,12 @@ const middlewareActions = {
   create: () => {},
   edit: () => {},
   deleteGallery: () => {},
+  addComment: () => {},
 };
 
 const galleriesSlice = createSlice({
   name: "galleries",
-  initialState: {
+  initialState: { 
     galleriesPage: [],
     gallery: null,
   },
@@ -26,9 +27,8 @@ const galleriesSlice = createSlice({
 });
 
 export const {
+  addComment,
   deleteGallery,
-  getAll,
-  get,
   create,
   edit,
   setGalleries,
@@ -37,3 +37,4 @@ export const {
   getGalleries,
 } = galleriesSlice.actions;
 export default galleriesSlice.reducer;
+
